@@ -8,4 +8,5 @@
 cd ~/test
 
 # Following are commands
-sleep 300
+sleep 10
+echo "Thi mission is run successfully!!" > ~/test/result.txt

@@ -3,7 +3,9 @@
 # Download files to server by scp command
 
 # Get setting info
-source "$(pwd)/syn-setting"
+#source "$(pwd)/syn-setting"
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source "$DIR/syn-setting"
 
 while getopts :n:d:h opt
 #while getopts :P:h opt
@@ -12,22 +14,22 @@ do case "$opt" in
 	d) dest="" ;;
 #	P) port=$OPTARG ;;
 	h)  echo
-		echo "Usage: ./sync-download.sh -n 'remote_files' -d localdir"
+		echo "Usage: sync-download -n 'remote_files' -d localdir"
         echo "==> remote_files: files you wanna download, can be directories or filenames"
         echo "==> localdir: The only one directory you wanna transfer to."
 		echo "==>          Do not set more than one destdir, error will occur."
 		echo "==>  	Please do note the 'remote_files' must be quoted otherwise you use absolute file path!!!"
 		echo "==>"
 		echo "==> examples:"
-		echo "              ./sync-download.sh -n '~/test/*' -d ./test"
+		echo "              sync-download -n '~/test/*' -d ./test"
 		echo "         or"
-		echo "              ./sync-download.sh -n /public/home/liuxs/test/* -d ./test"
+		echo "              sync-download -n /public/home/liuxs/test/* -d ./test"
 #        echo "==> port: ssh port, default is 22"
         echo
         exit ;;
 	*) echo "Unknown option: $opt"
 		echo
-		./sync-download.sh -h
+		sync-download -h
         exit ;;
 	esac
 done
@@ -39,13 +41,13 @@ dest=$(echo "$*" | sed -E 's/-n (.*) -d (.*)$/\2/')
 
 # if variable name is not set, show help info
 if [ ! -n "$remote" ]; then
-	./sync-download.sh -h
+	sync-download -h
 	exit
 fi
 
 # if variable dir is not set, show help info
 if [ ! -n "$dest" ]; then
-	./sync-download.sh -h
+	sync-download -h
 	exit
 fi
 
