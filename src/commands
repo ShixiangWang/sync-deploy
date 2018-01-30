@@ -2,5 +2,8 @@
 cd ~/test
 
 # Following are commands
-sleep 10
+sleep 20
 echo "Thi mission is run successfully!!" > ~/test/result.txt
+
+# call Rscripts
+Rscript ~/test/test.R > ~/test/result2.txt

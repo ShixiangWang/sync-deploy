@@ -1,0 +1,7 @@
+#!/bin/bash
+# run commands on remote host
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source "$DIR/syn-setting"
+
+ssh -p $port $remote_user@$remote_ip "$*"

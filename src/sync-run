@@ -1,5 +1,5 @@
 #!/bin/bash
-# run work task on remote server
+# run work task script on remote server
 
 while getopts :f:ht opt
 do case "$opt" in

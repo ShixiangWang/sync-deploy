@@ -66,8 +66,5 @@ sync-run -f $dest/work.sh -t # -f Following file path on remote server
 sleep 0.3
 echo "==>"
 echo "==> The work deploy successfully."
-echo "==> You can use sync-check.sh script to check the working status."
-echo "==>     more info, run  sync-check -h"
-echo "==> bye"
 echo
 # done
