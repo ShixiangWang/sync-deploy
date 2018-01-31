@@ -10,7 +10,8 @@
 - [下载与使用](https://github.com/ShixiangWang/sync-deploy#下载与使用)
 - [准备与配置](https://github.com/ShixiangWang/sync-deploy#准备与配置)
 - [命令说明](https://github.com/ShixiangWang/sync-deploy#命令说明)
-    - [sync-command](https://github.com/ShixiangWang/sync-deploy#sync-command)
+    
+    - [sync-command](https://github.com/ShixiangWang/sync-deploy#sync-command)
     - [sync-upload](https://github.com/ShixiangWang/sync-deploy#sync-upload)
     - [sync-download](https://github.com/ShixiangWang/sync-deploy#sync-download)
     - [sync-run](https://github.com/ShixiangWang/sync-deploy#sync-run)
