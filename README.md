@@ -4,11 +4,26 @@
 
 该命令集可以非常方便地向远程主机/服务器上传文件、运行远程脚本、下载文件等。
 
+**目录**：
+
+- [目的](https://github.com/ShixiangWang/sync-deploy#目的)
+- [下载与使用](https://github.com/ShixiangWang/sync-deploy#下载与使用)
+- [准备与配置](https://github.com/ShixiangWang/sync-deploy#准备与配置)
+- [命令说明](https://github.com/ShixiangWang/sync-deploy#命令说明)
+    - [sync-command](https://github.com/ShixiangWang/sync-deploy#sync-command)
+    - [sync-upload](https://github.com/ShixiangWang/sync-deploy#sync-upload)
+    - [sync-download](https://github.com/ShixiangWang/sync-deploy#sync-download)
+    - [sync-run](https://github.com/ShixiangWang/sync-deploy#sync-run)
+    - [sync-deploy](https://github.com/ShixiangWang/sync-deploy#sync-deploy)
+    - [sync-check](https://github.com/ShixiangWang/sync-deploy#sync-check)
+- [计算操作实例](https://github.com/ShixiangWang/sync-deploy#计算操作实例)
+
+
 ## 目的
 
-交互式地输入ssh、scp命令进行远端主机命令/脚本的执行、文件的上传与下载并不是很方便，有时候频繁地键入`host@ip`也是一件非常痛苦的事情。另外一方面，如果是向计算平台提交任务脚本，在远端文本命令窗口内修改作业参数以及调试运行脚本也是蛮不方便。所以仓库里脚本是为了能够比较方便地执行这一些任务。
+交互式地输入ssh、scp命令进行远端主机命令/脚本的执行、文件的上传与下载并不是很方便，有时候频繁地键入`hostname@ip`也是一件非常痛苦的事情。另外一方面，如果是向计算平台提交任务脚本，在远端文本命令窗口内修改作业参数以及调试运行脚本也是蛮不方便。所以仓库里脚本是为了能够比较方便地执行这一些任务。
 
-命令集内置`ssh`、`scp`、`qsub`、`qstat`命令，分别用于运行远程脚本、上传/下载文件、提交作业和查看作业状态。
+命令集内置`ssh`、`scp`、`qsub`、`qstat`命令，分别用于运行远程脚本、命令、上传/下载文件、提交作业和查看作业状态。
 
 ## 下载与使用
 
@@ -54,7 +69,7 @@ sync-check -h
 
 *****
 
-**如果你想要在计算平台部署任务**，请点击打开当前目录下的`qsub_header`文件填入PBS参数，设置可以参考[我整理的](https://github.com/ShixiangWang/mytoolkit/blob/master/hpc_info.md)或者百度上的其他资源，例如[1](https://wenku.baidu.com/view/5ab820293169a4517723a3ec.html)，[2](https://wenku.baidu.com/view/14ef7c230722192e4536f6f8.html)d等。
+**如果你想要在计算平台部署任务**，请点击打开当前目录下的`qsub_header`文件填入PBS参数，设置可以参考[我整理的](https://github.com/ShixiangWang/mytoolkit/blob/master/hpc_info.md)或者百度上的其他资源，例如[1](https://wenku.baidu.com/view/5ab820293169a4517723a3ec.html)，[2](https://wenku.baidu.com/view/14ef7c230722192e4536f6f8.html)等。
 
 **接着在当前目录的`commands`文件夹填入你要运行的命令。如果你想要运行其他脚本，请在该文件中调用执行**。
 
@@ -99,7 +114,7 @@ $ sync-command ls -l '~/test'
 
 同样注意使用`~`时需要加引号。
 
-**重点注意不支持-n与-d不能倒过来写，也就是选项是有顺序的**，为什么如此的原因是为了使`-n`选项后能够接大于1个的路径参数，命令脚本内部利用了`-n`和`-d`的位置特点运用正则表达式抓取所有路径名，你可以利用该命令同时上传不止一个文件/目录（也算是有得有失吧）。
+**重点注意不支持-n与-d倒过来写，也就是选项是有顺序的**，为什么如此的原因是为了使`-n`选项后能够接大于1个的路径参数，命令脚本内部利用了`-n`和`-d`的位置特点运用正则表达式抓取所有路径名，你可以利用该命令同时上传不止一个文件/目录（也算是有得有失吧）。
 
 ### sync-download
 
