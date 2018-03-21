@@ -61,6 +61,33 @@ sync-check -h
 
 参考文章[ssh-keygen基本用法](https://www.liaohuqiu.net/cn/posts/ssh-keygen-abc/)或其他资料生成公钥和私钥(搜索引擎可以找到一大堆这样的博文，我就不啰嗦了)。
 
+**最简单的方式**是在终端键入`ssh-keygen`然后一路按回车键。
+
+```shell
+$ ssh-keygen
+Generating public/private rsa key pair.
+Enter file in which to save the key (/c/Users/wangshx/.ssh/id_rsa):
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in /c/Users/wangshx/.ssh/id_rsa.
+Your public key has been saved in /c/Users/wangshx/.ssh/id_rsa.pub.
+The key fingerprint is:
+SHA256:XaNcpRZHmMp65eHKDzYIzbXYB0ZAb3EHYc7T3azgQD4 wangshx@wsx-liuxslab
+The key's randomart image is:
++---[RSA 2048]----+
+|       .o.+ **=  |
+|         = *oB o.|
+|         .E.@ . +|
+|       o Oo@o+ . |
+|      . S.*+o..  |
+|       .....o    |
+|        .o+.     |
+|         .oo     |
+|           ..    |
++----[SHA256]-----+
+
+```
+
 **如果你使用的是windows7或者10，不知道怎么使用ssh，我推荐你安装`git bash`，windows10用户也可以开启Ubuntu子系统以便于使用。**
 
 将公钥`id_sra.pub`（本地机器.ssh子目录下）中文本内容拷贝到服务器.ssh子目录中的`authorized_keys`中，放在已有文本后面。如果该文件不存在则创建。
