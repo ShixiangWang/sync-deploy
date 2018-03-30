@@ -53,16 +53,24 @@ if [ ! -n "$port" ]; then
 	port=22
 fi
 
-# 1. generate work script
-$DIR/generate_work_sh.sh
+#  generate work script
+# $DIR/generate_work_sh.sh
 
-# 2. upload files to server
-sync-upload -n $local $DIR/work.sh -d $dest
+# 1. upload files to server
+sync-upload -n $local -d $dest
 
-# 3. run task on remote server
-sync-run -f $dest/work.sh -t # -f Following file path on remote server
+# 2. run task one by one on remote server
+for tk in $local
+do
+	sync-run -f $dest/$tk -t # -f Following file path on remote server
+	if [ $? -ne 0 ]; then
+		echo "Error! There is something wrong in this deploy, please check it."
+		exit
+	fi
+done
 
 #ssh -p $port $remote_user@$remote_ip "qstat $job_id" | awk  '$1 ~/'$job_id'/ {print $5}'
+
 sleep 0.3
 echo "==>"
 echo "==> The work deploy successfully."

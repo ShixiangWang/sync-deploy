@@ -7,3 +7,8 @@
 #PBS -q normal_3
 
 # Please set PBS arguments above
+
+cd ~
+
+sleep 5
+echo "Test new script" >> ~/test/test.out
