@@ -51,6 +51,7 @@ cd sync-deploy/src
 sync-upload -h
 sync-download -h
 sync-run -h
+sync-template -h
 sync-deploy -h
 sync-check -h
 ```
@@ -267,11 +268,20 @@ $ sync-command ls -l '~/test'
     sync-run -f /home/wsx/work.sh
 ```
 
+## sync-template
+
+生成pbs模板文件，可以指定模板，也可以使用默认模板进行修改。
+
+```
+Usage: sync-template [-f] <template_file> [-n] <pbs_script.pbs>
+```
+
+
 ## sync-deploy
 
-上传文件、提交作业一气呵成。
+上传pbs文件、提交作业一气呵成。
 
-该命令内置调用`sync-upload`和`sync-run`这两个命令，以及其他几个脚本。在进行相关配置后，它可以根据`qsub_header`和`commands`两个文本自动生成作业脚本`work.sh`，上传指定文档（`work.sh`不指定也会上传），然后提交到任务节点进行运算。
+该命令内置调用`sync-upload`和`sync-run`这两个命令，以及其他几个脚本。先通过`sync-template`命令生成模板文件，然后根据任务需求修改`pbs`脚本，最后使用`sync-deploy`提交到任务节点进行运算。
 
 用法：
 
@@ -279,7 +289,6 @@ $ sync-command ls -l '~/test'
     Usage: sync-deploy -n local_files -d 'destdir'
 ```
 
-同样注意`~`的使用问题，另外，如果你只部署运行`work.sh`文档，那么请在`-n`选项后加`work.sh`，（因为`-n`选项后不加内容会报错）虽然该文本会被上传两次，但不会影响使用。
 
 一个实例如下：
 
@@ -288,11 +297,10 @@ $ sync-deploy -n work.sh -d '~/test'
 ==> command used: scp -pr -P 22 work.sh /home/wsx/working/sync-deploy/src/work.sh liuxs@10.15.22.110:~/test
 ==>
 work.sh                                                                                                         100%  240     0.2KB/s   00:00
-work.sh                                                                                                         100%  240     0.2KB/s   00:00
 ==> Files upload successfully.
 
 ==> run as batch mode.......
-job_id file locate at ~/test/job_id , id is
+job id is
 87728.node1
 ==>
 ==> The work deploy successfully.
@@ -306,7 +314,7 @@ job_id file locate at ~/test/job_id , id is
 用法：
 
 ```shell
-    Usage: sync-deploy -n id
+    Usage: sync-check -n id
 ```
 
 如果指定`-n`选项加上作业号，会查询指定的作业状态，如果不指定，会查看所有的作业状态。
@@ -331,143 +339,6 @@ Job ID                    Name             User            Time Use S Queue
 87730.node1                work.sh          liuxs           00:00:00 C normal_3
 
 ```
-
-## 计算操作实例
-
-我们来通过一个完整的实例来了解这些命令。
-
-**我们的任务是**利用远程的计算平台运行一些shell命令，执行一个R脚本。
-
-该R脚本位于`src/`的`test`目录下，这个脚本我们可以看做我们日常工作运行的主脚本。
-
-我们需要准备什么呢？
-
-只需要正确填写`qsub_header`与`commands`文档即可。
-
-我们先看看`qsub_header`的内容：
-
-```
-#PBS -l nodes=1:ppn=10
-#PBS -S /bin/bash
-#PBS -j oe
-#PBS -q normal_3
-
-# Please set PBS arguments above
-```
-
-上述就是一些PBS选项和参数，按你自己的需求和正确写法填写即可。这里测试我就简单地设定了节点与队列。具体参数你可以百度或者参考说明文档前面提供的信息。
-
-再瞧瞧`commands`文档：
-
-```shell
-# This job's working directory
-cd ~/test
-
-# Following are commands
-sleep 20
-echo "Thi mission is run successfully!!" > ~/test/result.txt
-
-# call Rscripts
-Rscript ~/test/test.R > ~/test/result2.txt
-```
-
-这个文档可能是我们工作主要需要修改的地方，这里我们用`cd`命令设定（作业的）工作目录，为避免任务结束太快，调用`sleep`命令让机器睡几秒，然后调用`echo`将一些文字结果传入一个结果文件，最后调用一个R脚本，并将结果传入另一个文件。
-
-R脚本的内容也非常简单,就是输入几行文本：
-
-```shell
-print("==>")
-print("==> Hello world!!!!!!!!")
-print("==> ")
-```
-
-为避免程序找不到或者找错文件，我们最好指定文件所在的全部路径。
-
-**让我们开始跑命令吧～**
-
-任务方案很简单，我们将`test.R`上传到远程主机的工作目录下，注意，`work.sh`也会自动生成并上传，它的内容就是`qsub_header`与`commands`的结合体。然后执行`work.sh`文本，然后将输出结果传回来。
-
-上传与运行可以利用`sync-deploy`命令一步搞定：
-```shell
-# 利用add_path.sh将命令加入环境路径后，我们可以利用tab补全查找命令
-wsx@Desktop-berry:~$ sync-
-sync-check     sync-command   sync-deploy    sync-download  sync-run       sync-upload
-
-# 利用sync-command查看目标路径情况
-wsx@Desktop-berry:~$ sync-command "ls -al  ~/test"
-总用量 8
-drwxrwxr-x  2 liuxs liuxs 4096 1月  30 23:52 .
-drwx------ 10 liuxs liuxs 4096 1月  30 22:51 ..
-
-# 部署任务到远程
-
-wsx@Desktop-berry:~$ sync-deploy -n ~/working/sync-deploy/src/test/test.R -d '~/test/'
-==> command used: scp -pr -P 22 /home/wsx/working/sync-deploy/src/test/test.R /home/wsx/working/sync-deploy/src/work.sh liuxs@10.15.22.110:~/test/
-==>
-test.R                                                                                                          100%   60     0.1KB/s   00:00
-work.sh                                                                                                         100%  300     0.3KB/s   00:00
-==> Files upload successfully.
-
-==> run as batch mode.......
-job_id file locate at ~/test/job_id , id is
-87732.node1
-==>
-==> The work deploy successfully.
-
-```
-
-可以看到任务成功部署并返回了`job id`，利用`sync-check`命令查询
-
-```shell
-wsx@Desktop-berry:~$ sync-check 87732
-Job ID                    Name             User            Time Use S Queue
-------------------------- ---------------- --------------- -------- - -----
-87732.node1                work.sh          liuxs           00:00:00 C normal_3
-```
-
-因为任务时间不长，很快就搞定了，已经出现了`C`标志（完成）。
-
-我们查看一下远程目录情况：
-
-```shell
-wsx@Desktop-berry:~$ sync-command ls '~/test'
-job_id
-result2.txt
-result.txt
-test.R
-work.sh
-```
-
-`job_id`文件是用来保存作业号信息的，就是前面输出的`87732.node1`。其他不用解释了。
-
-最后一步，将需要的结果下载回本地。
-
-我们创建一个临时目录单独存储，然后查看文件内容：
-
-```shell
-wsx@Desktop-berry:~$ mkdir test
-wsx@Desktop-berry:~$ sync-download -n "~/test/*" -d ~/test
-==> command used: scp -pr -P 22 liuxs@10.15.22.110:~/test/* /home/wsx/test
-==>
-job_id                                                                                                          100%   12     0.0KB/s   00:00
-result2.txt                                                                                                     100%   51     0.1KB/s   00:00
-result.txt                                                                                                      100%   34     0.0KB/s   00:00
-test.R                                                                                                          100%   60     0.1KB/s   00:00
-work.sh                                                                                                         100%  300     0.3KB/s   00:00
-==> Files download successfully.
-
-wsx@Desktop-berry:~$ cd test/
-wsx@Desktop-berry:~/test$ ls
-job_id  result2.txt  result.txt  test.R  work.sh
-wsx@Desktop-berry:~/test$ cat result.txt
-Thi mission is run successfully!!
-wsx@Desktop-berry:~/test$ cat result2.txt
-[1] "==>"
-[1] "==> Hello world!!!!!!!!"
-[1] "==> "
-```
-
-**任务完成！**
 
 ## 问题
 
