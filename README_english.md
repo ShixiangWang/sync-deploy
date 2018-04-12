@@ -6,6 +6,32 @@
  
 When you work with remote machine, it is usual that the network connection is not stable, the tool is for running your task quickly after you add your content of ssh `pub` key to `authorized_keys` of remote machine.
 
+```shell
+# generate ssh key
+$ ssh-keygen
+Generating public/private rsa key pair.
+Enter file in which to save the key (/c/Users/wangshx/.ssh/id_rsa):
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in /c/Users/wangshx/.ssh/id_rsa.
+Your public key has been saved in /c/Users/wangshx/.ssh/id_rsa.pub.
+The key fingerprint is:
+SHA256:XaNcpRZHmMp65eHKDzYIzbXYB0ZAb3EHYc7T3azgQD4 wangshx@wsx-liuxslab
+The key's randomart image is:
++---[RSA 2048]----+
+|       .o.+ **=  |
+|         = *oB o.|
+|         .E.@ . +|
+|       o Oo@o+ . |
+|      . S.*+o..  |
+|       .....o    |
+|        .o+.     |
+|         .oo     |
+|           ..    |
++----[SHA256]-----+
+
+```
+
 You can get rid of using `ssh command` every time, the tool will run automatically for you.
 
 There are 7 command available now.
