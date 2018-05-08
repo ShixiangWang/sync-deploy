@@ -13,7 +13,7 @@ do case "$opt" in
         echo "==> examples:"
         echo "              sync-template # this will use default template and output filename."
         echo "         or"
-        echo "              sync-run -f my_template -n my_job.pbs -t   #  this will use custom template and output filename."
+        echo "              sync-run -f my_template -n my_job.pbs   #  this will use custom template and output filename."
         echo
         exit ;;
     n) pn=$OPTARG ;;
