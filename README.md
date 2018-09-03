@@ -98,6 +98,8 @@ The key's randomart image is:
 
 **然后点击打开当前目录（src/）的`sync-setting`文件，将远程主机的host名与ip地址改为你自己的**。
 
+如果ssh服务还没有开启，请参考<https://www.linuxidc.com/Linux/2015-01/112045.htm>解决。
+
 
 *****
 
