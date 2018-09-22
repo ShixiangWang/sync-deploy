@@ -347,3 +347,9 @@ Job ID                    Name             User            Time Use S Queue
 ## 问题
 
 有问题欢迎[提交issue](https://github.com/ShixiangWang/sync-deploy/issues)进行讨论。
+
+## 下一步
+
+我发现自己有时候想连接几个不同的服务器，而目前只支持连接一个，不然每次都要更改sync-setting目录，接下来想实现这个功能。
+
+
