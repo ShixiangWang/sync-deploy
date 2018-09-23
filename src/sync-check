@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Following commands used to check working status
 
 # Get setting info

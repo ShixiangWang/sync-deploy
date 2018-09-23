@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # add sync-deploy path to ~/.bashrc
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"

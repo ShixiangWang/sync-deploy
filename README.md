@@ -352,4 +352,18 @@ Job ID                    Name             User            Time Use S Queue
 
 我发现自己有时候想连接几个不同的服务器，而目前只支持连接一个，不然每次都要更改sync-setting目录，接下来想实现这个功能。
 
+检测OS代码：
 
+```
+#!/usr/bin/env bash
+
+if [ "$(uname)" == "Darwin" ]; then
+    # Do something under Mac OS X platform        
+elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+    # Do something under GNU/Linux platform
+elif [ "$(expr substr $(uname -s) 1 10)" == "MINGW32_NT" ]; then
+    # Do something under 32 bits Windows NT platform
+elif [ "$(expr substr $(uname -s) 1 10)" == "MINGW64_NT" ]; then
+    # Do something under 64 bits Windows NT platform
+fi
+```

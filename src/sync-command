@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # run commands on remote host
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"

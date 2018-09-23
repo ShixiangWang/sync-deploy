@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # run work task script on remote server
 
 while getopts :f:ht opt
