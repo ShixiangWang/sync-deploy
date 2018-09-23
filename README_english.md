@@ -34,7 +34,7 @@ The key's randomart image is:
 
 You can get rid of using `ssh command` every time, the tool will run automatically for you.
 
-There are 7 command available now.
+There are 10 command available now.
  
 6 of them all can get usage by add `-h` option.
 
@@ -63,3 +63,39 @@ The left three commands are useful when you want deploy computation task in PBS 
 You can use `sync-template` to generate a template, and use `sync-deploy` to deploy task script on high performance platform (HPC) and use `sync-check` to check the status of you job.
 
 The last command is `sync-command`, you can use it to run any commands on remote.
+
+
+## New feature
+
+To easily work with multiple hosts, `sync-hostadd`, `sync-hostdel` and `sync-switch` has been added to this tool for add/delete and switch host.
+
+### sync-hostadd
+
+```shell
+$ sync-hostadd -h
+
+Usage: sync-hostadd -u host_name -d host_ip -p host_port
+==> examples:
+              sync-hostadd -u wangshx -d 10.15.22.110 -p 22
+```
+
+### sync-hostdel
+
+```shell
+$ sync-hostdel -h
+
+Usage: sync-hostdel -u host_name -d host_ip -p host_port
+==> examples:
+              sync-hostdel -u wangshx -d 10.15.22.110 -p 22
+```
+
+### sync-switch
+
+```shell
+$ sync-switch -h
+
+Usage: sync-switch -u host_name [-d] <host_ip> [-p] <host_port>
+[]<> mark optional argument and corresponding value.
+==> examples:
+              sync-switch -u wangshx -d 10.15.22.110 -p 22
+```

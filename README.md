@@ -19,6 +19,8 @@
     - [sync-run](https://github.com/ShixiangWang/sync-deploy#sync-run)
     - [sync-deploy](https://github.com/ShixiangWang/sync-deploy#sync-deploy)
     - [sync-check](https://github.com/ShixiangWang/sync-deploy#sync-check)
+
+- [新特性](https://github.com/ShixiangWang/sync-deploy#new-feature)：添加、删除以及切换远程主机
 - [计算操作实例](https://github.com/ShixiangWang/sync-deploy#计算操作实例)
 
 
@@ -342,6 +344,41 @@ Job ID                    Name             User            Time Use S Queue
 87729.node1                work.sh          liuxs           00:00:00 C normal_3
 87730.node1                work.sh          liuxs           00:00:00 C normal_3
 
+```
+
+## New feature
+
+To easily work with multiple hosts, `sync-hostadd`, `sync-hostdel` and `sync-switch` has been added to this tool for add/delete and switch host.
+
+### sync-hostadd
+
+```shell
+$ sync-hostadd -h
+
+Usage: sync-hostadd -u host_name -d host_ip -p host_port
+==> examples:
+              sync-hostadd -u wangshx -d 10.15.22.110 -p 22
+```
+
+### sync-hostdel
+
+```shell
+$ sync-hostdel -h
+
+Usage: sync-hostdel -u host_name -d host_ip -p host_port
+==> examples:
+              sync-hostdel -u wangshx -d 10.15.22.110 -p 22
+```
+
+### sync-switch
+
+```shell
+$ sync-switch -h
+
+Usage: sync-switch -u host_name [-d] <host_ip> [-p] <host_port>
+[]<> mark optional argument and corresponding value.
+==> examples:
+              sync-switch -u wangshx -d 10.15.22.110 -p 22
 ```
 
 ## 问题
