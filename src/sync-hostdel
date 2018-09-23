@@ -1,0 +1,64 @@
+#!/usr/bin/env bash
+# delete server host
+
+# locate dir of sync-deploy tool
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+setting="$DIR/syn-setting"
+
+#---- Option Setting
+while getopts :u:d:p:h opt
+do case "$opt" in
+	u) hostname=$OPTARG ;;
+	d) hostip=$OPTARG ;;
+    p) hostport=$OPTARG ;;
+	h)  echo
+		echo "Usage: sync-hostdel -u host_name -d host_ip -p host_port"
+		echo "==> examples:"
+		echo "              sync-hostdel -u wangshx -d 10.15.22.110 -p 22"
+        echo
+        exit ;;
+	*) echo "Unknown option: $opt"
+		echo
+		sync-hostdel -h
+        exit ;;
+	esac
+done
+
+# if hostname is not set, show help info
+if [ ! -n "$hostname" ]; then
+	sync-hostdel -h
+	exit
+fi
+
+# if hostip is not set, show help info
+if [ ! -n "$hostip" ]; then
+	sync-hostdel -h
+	exit
+fi
+
+# if hostport is not set, set 22 as default
+if [ ! -n "$hostport" ]; then
+	hostport=22
+    echo "host port not set, default 22 wii be assigned."
+fi
+
+#----- Host Delete
+hostdel="$hostname,$hostip,$hostport"
+
+isgrep=`grep $hostdel $DIR/sync-hosts`
+
+echo $hostdel
+echo $isgrep
+
+if [ -z $isgrep ]; then
+    echo "host not exists, please check."
+    echo "exit..."
+else
+    #grepn=`wc -l $isgrep`
+    echo "back up original host file as sync-hosts.bk"
+    cat $DIR/sync-hosts > $DIR/sync-hosts.bk
+    echo "delete host..."
+    grep -v $hostdel $DIR/sync-hosts.bk > $DIR/sync-hosts
+    echo "done."
+fi

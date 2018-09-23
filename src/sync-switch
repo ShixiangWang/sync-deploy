@@ -1,0 +1,85 @@
+#!/usr/bin/env bash
+# switch server host
+
+# locate dir of sync-deploy tool
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+setting="$DIR/syn-setting"
+
+#---- Option Setting
+while getopts :u:d:p:h opt
+do case "$opt" in
+	u) hostname=$OPTARG ;;
+	d) hostip=$OPTARG ;;
+    p) hostport=$OPTARG ;;
+	h)  echo
+		echo "Usage: sync-switch -u host_name [-d] <host_ip> [-p] <host_port>"
+        echo "[]<> mark optional argument and corresponding value."
+		echo "==> examples:"
+		echo "              sync-switch -u wangshx -d 10.15.22.110 -p 22"
+        echo
+        exit ;;
+	*) echo "Unknown option: $opt"
+		echo
+		sync-switch -h
+        exit ;;
+	esac
+done
+
+# if hostname is not set, show help info
+if [ ! -n "$hostname" ]; then
+	sync-switch -h
+	exit
+fi
+
+# if hostport is not set, delete port part when grep
+if [ ! -n "$hostport" ]; then
+    # if hostip is not set, delete ip part when grep
+    if [ ! -n "$hostip" ]; then
+	    host_switch=$hostname
+    else
+        host_switch="$hostname,$hostip"
+    fi
+else
+    # if hostip is not set, delete ip part when grep
+    if [ ! -n "$hostip" ]; then
+	    host_switch="$hostname,.*,$hostport"
+    else
+        host_switch="$hostname,$hostip,$hostport"
+    fi
+fi
+
+
+#----- Host switch
+isgrep=`grep $host_switch $DIR/sync-hosts`
+
+#echo $host_switch
+#echo $isgrep
+
+if [ -z $isgrep ]; then
+    echo "host you wanna change not exists, please check."
+    echo "exit..."
+else
+    grepn=`grep $host_switch $DIR/sync-hosts | wc -l`
+    if [ $grepn != "1" ]; then
+        echo "muliple records match your host, please specify more detail"
+        sync-switch -h
+        exit
+    else
+        echo "back up original host file as syn-setting.bk ..."
+        cat $DIR/syn-setting > $DIR/syn-setting.bk
+
+        user=`echo $isgrep | awk -F , '{print $1}'`
+        ip=`echo $isgrep | awk -F , '{print $2}'`
+        port=`echo $isgrep | awk -F , '{print $3}'`
+
+        echo "remote_user=$user" > $DIR/syn-setting
+        echo "remote_ip=$ip" >> $DIR/syn-setting
+        echo "port=$port" >> $DIR/syn-setting
+
+        echo "done. host has switched to"
+        echo "  remote_user=$user"
+        echo "  remote_ip=$ip"
+        echo "  port=$port"
+    fi
+fi
