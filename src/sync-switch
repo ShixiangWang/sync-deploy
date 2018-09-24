@@ -15,7 +15,7 @@ do case "$opt" in
 	h)  echo
 		echo "Usage: sync-switch -u host_name [-d] <host_ip> [-p] <host_port>"
         echo "[]<> mark optional argument and corresponding value."
-		echo "==> examples:"
+		echo ">>> examples:"
 		echo "              sync-switch -u wangshx -d 10.15.22.110 -p 22"
         echo
         exit ;;

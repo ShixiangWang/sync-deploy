@@ -15,16 +15,16 @@ do case "$opt" in
 #	P) port=$OPTARG ;;
 	h)  echo
 		echo "Usage: sync-download -n 'remote_files' -d localdir"
-        echo "==> remote_files: files you wanna download, can be directories or filenames"
-        echo "==> localdir: The only one directory you wanna transfer to."
-		echo "==>          Do not set more than one destdir, error will occur."
-		echo "==>  	Please do note the 'remote_files' must be quoted otherwise you use absolute file path!!!"
-		echo "==>"
-		echo "==> examples:"
+        echo ">>> remote_files: files you wanna download, can be directories or filenames"
+        echo ">>> localdir: The only one directory you wanna transfer to."
+		echo ">>>          Do not set more than one destdir, error will occur."
+		echo ">>>  	Please do note the 'remote_files' must be quoted otherwise you use absolute file path!!!"
+		echo ">>>"
+		echo ">>> examples:"
 		echo "              sync-download -n '~/test/*' -d ./test"
 		echo "         or"
 		echo "              sync-download -n /public/home/liuxs/test/* -d ./test"
-#        echo "==> port: ssh port, default is 22"
+#        echo ">>> port: ssh port, default is 22"
         echo
         exit ;;
 	*) echo "Unknown option: $opt"
@@ -60,10 +60,10 @@ fi
 #echo $#
 #echo $@
 
-echo "==> command used: scp -pr -P $port $remote_user@$remote_ip:$remote $dest"
-echo "==>"
+echo ">>> command used: scp -pr -P $port $remote_user@$remote_ip:$remote $dest"
+echo ">>>"
 scp -pr -P $port $remote_user@$remote_ip:$remote $dest
 
 
-echo "==> Files download successfully."
+echo ">>> Files download successfully."
 echo

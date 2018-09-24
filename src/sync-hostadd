@@ -14,7 +14,7 @@ do case "$opt" in
     p) hostport=$OPTARG ;;
 	h)  echo
 		echo "Usage: sync-hostadd -u host_name -d host_ip -p host_port"
-		echo "==> examples:"
+		echo ">>> examples:"
 		echo "              sync-hostadd -u wangshx -d 10.15.22.110 -p 22"
         echo
         exit ;;

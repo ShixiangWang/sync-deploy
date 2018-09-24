@@ -6,11 +6,11 @@ do case "$opt" in
     f) fn=$OPTARG ;;
 	h)  echo
 		echo "Usage: sync-template [-f] <template_file> [-n] <pbs_script.pbs>"
-        echo "==> template_file: file used to generate pbs template, must be a shell script contains qsub_header."
-        echo "==>                If not specified, a default templated will be used."
-        echo "==> pbs_script.pbs: pbs file generated from template_file, if not specified, a default name will be given."
-        echo "==>"
-        echo "==> examples:"
+        echo ">>> template_file: file used to generate pbs template, must be a shell script contains qsub_header."
+        echo ">>>                If not specified, a default templated will be used."
+        echo ">>> pbs_script.pbs: pbs file generated from template_file, if not specified, a default name will be given."
+        echo ">>>"
+        echo ">>> examples:"
         echo "              sync-template # this will use default template and output filename."
         echo "         or"
         echo "              sync-template -f my_template -n my_job.pbs   #  this will use custom template and output filename."
