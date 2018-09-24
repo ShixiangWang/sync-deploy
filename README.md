@@ -21,7 +21,6 @@
     - [sync-check](https://github.com/ShixiangWang/sync-deploy#sync-check)
 
 - [新特性](https://github.com/ShixiangWang/sync-deploy#new-feature)：添加、删除以及切换远程主机
-- [计算操作实例](https://github.com/ShixiangWang/sync-deploy#计算操作实例)
 
 
 ## 目的
