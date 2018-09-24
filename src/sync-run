@@ -41,7 +41,7 @@ fi
 # you can also use absolute path
 if [ $batch == "y" ]; then
     echo ">>> run as batch mode......."
-    ssh -p $port $remote_user@$remote_ip "qsub $fl >> $(dirname $fl)/job_id; echo 'job id is'; cat $(dirname $fl)/job_id; rm $(dirname $fl)/job_id"
+    ssh -p $port $remote_user@$remote_ip "cd $(dirname $fl); qsub $(basename $fl) >> $(dirname $fl)/job_id; echo 'job id is'; cat $(dirname $fl)/job_id; rm $(dirname $fl)/job_id"
 else
     echo ">>> run as regular mode......."
     ssh -p $port $remote_user@$remote_ip "qsub $fl"
