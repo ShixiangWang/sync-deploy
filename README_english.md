@@ -67,7 +67,7 @@ The last command is `sync-command`, you can use it to run any commands on remote
 
 ## New feature
 
-To easily work with multiple hosts, `sync-hostadd`, `sync-hostdel` and `sync-switch` has been added to this tool for add/delete and switch host.
+To easily work with multiple hosts, `sync-hostadd`, `sync-hostdel` and `sync-switch` has been added to this tool for add/delete and switch host. `sync-hostlist` used to list current host and available hosts.
 
 ### sync-hostadd
 
@@ -98,4 +98,20 @@ Usage: sync-switch -u host_name [-d] <host_ip> [-p] <host_port>
 []<> mark optional argument and corresponding value.
 ==> examples:
               sync-switch -u wangshx -d 10.15.22.110 -p 22
+```
+
+### sync-hostlist
+
+This command has no arguments.
+
+```shell
+$ sync-hostlist
+>>> Current Host
+user=wangshx
+ip=10.15.22.110
+port=22
+
+>>> Available Hosts:
+liuxs,10.15.22.110,22
+wangshx,10.15.22.110,22
 ```

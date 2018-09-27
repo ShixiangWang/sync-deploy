@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# switch server host
+
+# locate dir of sync-deploy tool
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+echo ">>> Current Host:"
+sed 's/remote_//' $DIR/syn-setting
+
+echo
+echo ">>> Available Hosts:"
+cat $DIR/sync-hosts

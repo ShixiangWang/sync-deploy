@@ -380,6 +380,22 @@ Usage: sync-switch -u host_name [-d] <host_ip> [-p] <host_port>
               sync-switch -u wangshx -d 10.15.22.110 -p 22
 ```
 
+### sync-hostlist
+
+没有参数，列出可用和保存的所有主机列表。
+
+```shell
+$ sync-hostlist
+>>> Current Host
+user=wangshx
+ip=10.15.22.110
+port=22
+
+>>> Available Hosts:
+liuxs,10.15.22.110,22
+wangshx,10.15.22.110,22
+```
+
 ## 问题
 
 有问题欢迎[提交issue](https://github.com/ShixiangWang/sync-deploy/issues)进行讨论。
