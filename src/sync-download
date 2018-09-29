@@ -64,6 +64,8 @@ echo ">>> command used: scp -pr -P $port $remote_user@$remote_ip:$remote $dest"
 echo ">>>"
 scp -pr -P $port $remote_user@$remote_ip:$remote $dest
 
-
-echo ">>> Files download successfully."
+echo
+echo "======"
+echo "Command run successfully. Please check if the files have been downloaded."
+Echo "If not, please modify your wrong path for files."
 echo
