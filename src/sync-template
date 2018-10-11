@@ -38,10 +38,15 @@ if [ ! -n "$fn" ]; then
 else
 #    cat $DIR/qsub_header $DIR/commands > $DIR/$1
 #    chmod u+x $DIR/$1
-    if [ ! -n "$pn" ]; then
-        cat $fn > $(pwd)/work_script.pbs
+    if [ -r "$fn" ]; then
+        if [ ! -n "$pn" ]; then
+            cat $fn > $(pwd)/work_script.pbs
+        else
+            cat $fn > $(pwd)/$pn
+        fi
     else
-        cat $fn > $(pwd)/$pn
+        echo ">>> file $fn does not exist"
+        echo ">>> exit..."
     fi
 fi
 
