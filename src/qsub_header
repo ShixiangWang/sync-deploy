@@ -5,7 +5,5 @@
 
 #PBS -j oe
 #PBS -q normal_3
-#PBS -m e                            # enable email
-#PBS -M w_shixiang@163.com           # set email
 
 # Please set PBS arguments above
