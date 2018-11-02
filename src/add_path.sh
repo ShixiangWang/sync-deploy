@@ -30,7 +30,7 @@ if [ ! -n "$dest_rc" ]; then
         # Do something under Mac OS X platform 
         os_rc=~/.bash_profile
     else
-        or_rc=~/.bashrc   
+        os_rc=~/.bashrc   
     fi
 else
     os_rc=$dest_rc
