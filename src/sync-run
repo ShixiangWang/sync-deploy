@@ -8,12 +8,12 @@ do case "$opt" in
 		echo "Usage: sync-run -f work_script -t"
         echo ">>> work_script: script used to run on remote, must be a shell script contains qsub_header."
         echo ">>>              You can use relative/absolute file path on server file system."
-        echo ">>> if -t option specified, the command will run as batch mode, it usually called by sync-deploy command."
+        echo ">>> if -t option specified, the command will run as job mode, it usually called by sync-deploy command."
         echo ">>>"
         echo ">>> examples:"
         echo "              sync-run -f work.sh      # this is regular mode, basically you wanna this if you run this script independently"
         echo "         or"
-        echo "              sync-run -n work.sh -t   # this is batch mode, basically used to be called by sync-deploy command"
+        echo "              sync-run -n work.sh -t   # this is job mode, basically used to be called by sync-deploy command"
         echo "                                       # it will additionally generate a job_id file in the same directory as work_script"
         echo
         exit ;;
@@ -40,7 +40,7 @@ if [ ! -n "$batch" ]; then
 fi
 # you can also use absolute path
 if [ $batch == "y" ]; then
-    echo ">>> run as batch mode......."
+    echo ">>> run as job mode......."
     ssh -p $port $remote_user@$remote_ip "cd $(dirname $fl); qsub $(basename $fl) >> $(dirname $fl)/job_id; echo 'job id is'; cat $(dirname $fl)/job_id; rm $(dirname $fl)/job_id"
 else
     echo ">>> run as regular mode......."
