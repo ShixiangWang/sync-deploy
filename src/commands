@@ -1,12 +1,7 @@
 # This job's working directory (You must set this)
-cd ~/wangshx/projects/biotools/ensembl-vep
+cd ~
 
 # Following are commands/scripts you want to run
 # If you do not know how to set this, please check README.md file 
-
-# load perl and activate conda env
-
-module load apps/perl/5.22.1
-source activate py2
 
 
