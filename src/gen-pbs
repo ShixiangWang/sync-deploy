@@ -1,0 +1,23 @@
+#!/usr/bin/env bash 
+# generate batch pbs from a template
+
+while getopts :f:s:m:d:h opt
+do case "$opt" in
+    f) input=$OPTARG ;;
+    s) samplefile=$OPTARG ;;
+    m) mapping=$OPTARG ;;
+    d) outdir=$OPTARG ;;
+	h)  echo
+		echo "Usage: gen-pbs -f template -s samplefile -m mapping -d outdir"
+        echo ">>> template: a pbs template file."
+        echo ">>> samplefile: a file with columns used to iterate."
+        echo ">>> mapping: a file contains mapping between labels and column index (integer) in samplefile."
+        echo ">>> outdir: output directory."
+        exit ;;
+	*) echo "Unknown option: $opt"
+		echo
+		gen-pbs -h
+        exit ;;
+	esac
+done
+
