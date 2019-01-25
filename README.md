@@ -101,7 +101,6 @@ The key's randomart image is:
 
 如果ssh服务还没有开启，请参考<https://www.linuxidc.com/Linux/2015-01/112045.htm>解决。
 
-
 *****
 
 **如果你想要在计算平台部署任务**，请点击打开当前目录下的`qsub_header`文件填入PBS参数，设置可以参考[我整理的](https://github.com/ShixiangWang/mytoolkit/blob/master/hpc_info.md)或者百度上的其他资源，例如[1](https://wenku.baidu.com/view/5ab820293169a4517723a3ec.html)，[2](https://wenku.baidu.com/view/14ef7c230722192e4536f6f8.html)等。
@@ -394,6 +393,67 @@ port=22
 >>> Available Hosts:
 liuxs,10.15.22.110,22
 wangshx,10.15.22.110,22
+```
+
+
+
+### PBS脚本批量生成与提交
+
+有时候为每一个处理的样本（对）提交一个pbs确实可以带来极大的便利，下面两个命令参考@[BioAmelie](https://github.com/BioAmelie)的一些想法和代码编写而成。
+
+#### sync-qgen
+
+命令说明，`-h`选项可以获取帮助：
+
+```shell
+$ ./sync-qgen -h
+
+Usage: sync-qgen -f template -s samplefile -m mapfile -d outdir
+>>> template: a pbs template file.
+>>> samplefile: a csv file with columns used to iterate.
+>>> mapfile: a csv file contains mapping between labels and column index (0-based) in samplefile.
+>>> outdir: output directory.
+```
+
+这里template是一个pbs模板，samplefile则是一个包含1列及以上的csv文件，第一列必须为处理样本的id或唯一的Job id，mapfile是一个包含1行及以上的csv文件，**第一列标定pbs模板中要更改（替换）的标签，如`<head>`，第2列则标定替换后的标签，为samplefile的（基于0）整数索引，即0表示替换`<head>`为samplefile的第1列**，最后outdir指定存储pbs的目录（命令会自动创建目录，最好每个任务新建一个）。
+
+下面是测试：
+
+```shell
+$ cd test-pbs
+$ ../src/sync-qgen -f pbs-template -s samplefile -m mapping -d pbs
+
+Parsing parameters...
+=====================
+PBS Template: pbs-template
+Sample file : samplefile
+Mapping file: mapping
+Output path : pbs
+
+
+Working...
+  Modify <head> to TCGA-2A-A8VO-01
+  Modify <head2> to TCGA-2A-A8VO-01-01
+  Modify <head> to TCGA-2A-A8VT-01
+  Modify <head2> to TCGA-2A-A8VT-01-01
+  Modify <head> to TCGA-2A-A8VV-01
+  Modify <head2> to TCGA-2A-A8VV-01-01
+  Modify <head> to TCGA-2A-A8VX-01
+  Modify <head2> to TCGA-2A-A8VX-01-01
+Done.
+
+```
+
+#### sync-qsub
+
+这个命令配合`sync-qgen`输出的目录使用，它批量把pbs提交上去。
+
+```shell
+$ ./sync-qsub -h
+
+Usage: sync-qsub -d pbs_dir
+>>> pbs_dir: a directory store submitting pbs files.
+
 ```
 
 ## 问题

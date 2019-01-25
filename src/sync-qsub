@@ -1,0 +1,32 @@
+#!/usr/bin/env bash 
+# submit all pbs in a directory
+
+while getopts :d:h opt
+do case "$opt" in
+    d) dir=$OPTARG ;;
+	h)  echo
+	    echo "Usage: sync-qsub -d pbs_dir"
+                echo ">>> pbs_dir: a directory store submitting pbs files."
+                exit 1 ;;
+	*)  echo "Unknown option: $opt"
+	    echo
+	    sync-qsub -h
+                exit 1 ;;
+    esac
+done
+
+if [ ! -n "$dir" ]; then
+    echo "Error: directory path must set with -d option"
+    $0 -h
+    exit 1
+fi
+
+echo $dir/"*.pbs"
+
+for i in `ls $dir/*".pbs"`
+do 
+    echo "qsub ${i}"
+    qsub ${i}
+done
+
+

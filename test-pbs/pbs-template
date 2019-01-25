@@ -1,0 +1,15 @@
+ #PBS -N PBS_<head>_pyclone          
+ #PBS -l nodes=1:ppn=5
+ #PBS -l walltime=25:00:00
+ #PBS -S /bin/bash
+ #PBS -q normal_3
+
+ cd $PBS_O_WORKDIR
+ source activate pyclone
+ PyClone run_analysis_pipeline --in_files ./<head>_pyclone_input.txt \
+     --working_dir ./<head> \ 
+     --prior major_copy_number \
+     --plot_file_format pdf \
+
+<head>
+<head2>

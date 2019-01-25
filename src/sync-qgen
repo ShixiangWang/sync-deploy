@@ -1,0 +1,100 @@
+#!/usr/bin/env bash 
+# generate batch pbs from a template
+
+while getopts :f:s:m:d:h opt
+do case "$opt" in
+    f) input=$OPTARG ;;
+    s) samplefile=$OPTARG ;;
+    m) mapfile=$OPTARG ;;
+    d) outdir=$OPTARG ;;
+	h)  echo
+	    echo "Usage: sync-qgen -f template -s samplefile -m mapfile -d outdir"
+                echo ">>> template: a pbs template file."
+                echo ">>> samplefile: a csv file with columns used to iterate."
+                echo ">>> mapfile: a csv file contains mapping between labels and column index (0-based) in samplefile."
+                echo ">>> outdir: output directory."
+                exit 1 ;;
+	*)  echo "Unknown option: $opt"
+	    echo
+	    sync-qgen -h
+                exit 1 ;;
+    esac
+done
+
+#<<<<<<<<<<<<<<<<<<< Check input
+if [ ! -n "$input" ]; then
+    echo "Error: PBS template file must set"
+    $0 -h
+    exit 1
+fi
+
+if [ ! -n "$samplefile" ]; then
+    echo "Error: sample csv file must set"
+    $0 -h
+    exit 1
+fi
+
+if [ ! -n "$mapfile" ]; then
+    echo "Error: mapping csv file must set"
+    $0 -h
+    exit 1
+fi
+
+if [ ! -n "$outdir" ]; then
+    outdir=.
+fi
+#>>>>>>>>>>>>>>>>>>>>>> Check input
+
+echo "Parsing parameters..."
+echo "====================="
+echo "PBS Template: $input"
+echo "Sample file : $samplefile"
+echo "Mapping file: $mapfile"
+echo "Output path : $outdir"
+
+sleep 0.5
+
+echo 
+
+
+if [ ! -d $outdir ]; then
+    mkdir -p $outdir
+    echo "Creating $outdir"
+fi
+
+################
+
+echo
+echo "Working..."
+
+cat $samplefile | while read samples
+do
+
+    OLD_IFS="$IFS" 
+    IFS="," 
+    s_arr=($samples)
+    IFS="$OLD_IFS" 
+
+    # copy template as new pbs
+    cp $input $outdir/${s_arr[0]}".pbs"
+
+    for map in `cat $mapfile`
+    do
+        #echo $map
+
+        OLD_IFS="$IFS" 
+        IFS="," 
+        m_arr=($map) 
+        IFS="$OLD_IFS" 
+
+        # do real thing
+        echo "  Modify ${m_arr[0]} to ${s_arr[${m_arr[1]}]}"
+        sed -i 's/'${m_arr[0]}'/'${s_arr[${m_arr[1]}]}'/' $outdir/${s_arr[0]}".pbs"
+
+    done
+
+done
+
+
+
+echo "Done."
