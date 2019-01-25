@@ -21,7 +21,6 @@ if [ ! -n "$dir" ]; then
     exit 1
 fi
 
-echo $dir/"*.pbs"
 
 for i in `ls $dir/*".pbs"`
 do 
