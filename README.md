@@ -2,26 +2,38 @@
 
 [![DOI](https://zenodo.org/badge/119467219.svg)](https://zenodo.org/badge/latestdoi/119467219) [![Open Source Love svg1](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/) [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/) [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/ShixiangWang/sync-deploy/graphs/commit-activity)
 
-[Read in English](https://github.com/ShixiangWang/sync-deploy/blob/master/README_english.md)
+[Read in English](README_english.md)
 
 该命令集可以非常方便地向远程主机/服务器上传文件、运行远程脚本、下载文件等。
 
-**目录**：
+<details>
+<summary>目录</summary>
 
-- [目的](https://github.com/ShixiangWang/sync-deploy#目的)
-- [下载与使用](https://github.com/ShixiangWang/sync-deploy#下载与使用)
-- [准备与配置](https://github.com/ShixiangWang/sync-deploy#准备与配置)
-- [命令说明](https://github.com/ShixiangWang/sync-deploy#命令说明)
-    
-    - [sync-command](https://github.com/ShixiangWang/sync-deploy#sync-command)
-    - [sync-upload](https://github.com/ShixiangWang/sync-deploy#sync-upload)
-    - [sync-download](https://github.com/ShixiangWang/sync-deploy#sync-download)
-    - [sync-run](https://github.com/ShixiangWang/sync-deploy#sync-run)
-    - [sync-deploy](https://github.com/ShixiangWang/sync-deploy#sync-deploy)
-    - [sync-check](https://github.com/ShixiangWang/sync-deploy#sync-check)
+1. [sync deploy 命令工具](#sync-deploy-命令工具)
+   1. [目的](#目的)
+   2. [下载与使用](#下载与使用)
+   3. [准备与配置](#准备与配置)
+      1. [查看可用资源与计算节点状态](#查看可用资源与计算节点状态)
+      2. [编写PBS脚本](#编写pbs脚本)
+   4. [命令说明](#命令说明)
+      1. [sync-command](#sync-command)
+      2. [sync-upload](#sync-upload)
+      3. [sync-download](#sync-download)
+      4. [sync-run](#sync-run)
+   5. [sync-template](#sync-template)
+   6. [sync-deploy](#sync-deploy)
+      1. [sync-check](#sync-check)
+   7. [New feature](#new-feature)
+      1. [sync-hostadd](#sync-hostadd)
+      2. [sync-hostdel](#sync-hostdel)
+      3. [sync-switch](#sync-switch)
+      4. [sync-hostlist](#sync-hostlist)
+      5. [PBS脚本批量生成与提交](#pbs脚本批量生成与提交)
+         1. [sync-qgen](#sync-qgen)
+         2. [sync-qsub](#sync-qsub)
+   8. [提交Bug](#提交bug)
 
-- [新特性](https://github.com/ShixiangWang/sync-deploy#new-feature)：添加、删除以及切换远程主机
-
+</details>
 
 ## 目的
 
@@ -456,6 +468,6 @@ Usage: sync-qsub -d pbs_dir
 
 ```
 
-## 问题
+## 提交Bug
 
 有问题欢迎[提交issue](https://github.com/ShixiangWang/sync-deploy/issues)进行讨论。
