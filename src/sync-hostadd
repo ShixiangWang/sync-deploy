@@ -40,7 +40,7 @@ fi
 # if hostport is not set, set 22 as default
 if [ ! -n "$hostport" ]; then
 	hostport=22
-    echo "host port not set, default 22 wii be assigned."
+    echo "host port not set, default 22 will be assigned."
 fi
 
 #----- Host Add
