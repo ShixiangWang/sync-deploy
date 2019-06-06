@@ -23,9 +23,10 @@ fi
 
 
 for i in `ls $dir/*".pbs"`
-do 
-    echo "qsub ${i}"
-    qsub ${i}
+do
+    pbs=`echo ${i} | sed 's/\/\//\//'` 
+    echo "Running qsub $pbs"
+    qsub $pbs
 done
 
 
