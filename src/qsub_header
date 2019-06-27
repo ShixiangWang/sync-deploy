@@ -3,6 +3,6 @@
 #PBS -S /bin/bash
 #PBS -l mem=50gb
 #PBS -j oe
-#PBS -q normal_3
+#PBS -q normal_8
 
 # Please set PBS arguments above
