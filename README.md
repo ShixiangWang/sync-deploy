@@ -105,7 +105,7 @@ The key's randomart image is:
 
 **如果你使用的是windows7或者10，不知道怎么使用ssh，我推荐你安装`git bash`，windows10用户也可以开启Ubuntu子系统以便于使用。**
 
-将公钥`id_sra.pub`（本地机器.ssh子目录下）中文本内容拷贝到服务器.ssh子目录中的`authorized_keys`中，放在已有文本后面。如果该文件不存在则创建。
+将公钥`id_rsa.pub`（本地机器.ssh子目录下）中文本内容拷贝到服务器.ssh子目录中的`authorized_keys`中，放在已有文本后面。如果该文件不存在则创建。
 
 进行测试，如果不需要密码登录则成功。
 
