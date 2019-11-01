@@ -89,7 +89,7 @@ do
 
         # do real thing
         echo "  Modify ${m_arr[0]} to ${s_arr[${m_arr[1]}]}"
-        sed -i 's/'${m_arr[0]}'/'${s_arr[${m_arr[1]}]}'/' $outdir/${s_arr[0]}".pbs"
+        sed -i 's/'${m_arr[0]}'/'${s_arr[${m_arr[1]}]}'/g' $outdir/${s_arr[0]}".pbs"
 
     done
 
