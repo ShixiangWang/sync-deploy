@@ -1,8 +1,8 @@
 #PBS -l walltime=1000:00:00
-#PBS -l nodes=1:ppn=28
+#PBS -l nodes=1:ppn=1
 #PBS -S /bin/bash
-#PBS -l mem=50gb
+#PBS -l mem=4gb
 #PBS -j oe
-#PBS -q normal_8
+#PBS -q pub_fast
 
 # Please set PBS arguments above
